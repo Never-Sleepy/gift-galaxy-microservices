@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15.2-alpine
+    environment:
+      POSTGRES_USER: spring
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: recommendations
+    volumes:
+      - ~/pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  mongo:
+    image: mongo:5.0.16
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: spring
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ~/mongodata:/data/db
+    ports:
+      - "27017:27017"
