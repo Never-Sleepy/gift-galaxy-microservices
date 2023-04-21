@@ -23,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -72,8 +73,8 @@
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "mongo",
-      "postgresql",
-      "mysql"
+      "mysql",
+      "postgresql"
     ]
   }
 }]]></component>
@@ -90,7 +91,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.RecommendationServiceApplication">
     <configuration name="RecommendationServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="recommendation-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.giftgalaxy.RecommendationServiceApplication" />
@@ -159,11 +160,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.mongo: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.postgres: Compose Deployment" />
-        <item itemvalue="Spring Boot.UserServiceApplication" />
         <item itemvalue="Spring Boot.RecommendationServiceApplication" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.postgres: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.mongo: Compose Deployment" />
+        <item itemvalue="Spring Boot.UserServiceApplication" />
       </list>
     </recent_temporary>
   </component>
