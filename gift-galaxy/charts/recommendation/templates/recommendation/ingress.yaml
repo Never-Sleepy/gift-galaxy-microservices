@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.name }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    {{- if eq .Values.global.env "production" }}
+    cert-manager.io/issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    {{- end }}
+spec:
+  tls:
+    {{- if eq .Values.global.env "production" }}
+    - hosts:
+        - recommendation.fishboneapps.com
+      secretName: fishboneapps-recommendation-tls
+    {{- end }}
+  rules:
+    {{- if eq .Values.global.env "production" }}
+    - host: recommendation.fishboneapps.com
+    {{- else }}
+    - host: recommendation.giftgalaxy.dev
+    {{- end }}
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: {{ .Values.name }}-service
+                port:
+                  number: {{ .Values.service.port }}

@@ -1,0 +1,17 @@
+name: recommendation
+
+replicaCount: 1
+
+image:
+  repository: recommendation-service
+  tag: latest
+
+service:
+  port: 8081
+
+database:
+  image:
+    repository: postgres
+    tag: 15.2-alpine
+  port: 5432
+  replicaCount: 1

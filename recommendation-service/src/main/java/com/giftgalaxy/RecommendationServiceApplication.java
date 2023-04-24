@@ -11,13 +11,13 @@ import java.util.Map;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("api/v1/ping")
+@RequestMapping("api/v1")
 public class RecommendationServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(RecommendationServiceApplication.class, args);
     }
 
-    @GetMapping()
+    @GetMapping("ping")
     public Map<String, String> ping() {
         Map<String, String> response = new HashMap<>();
         response.put("message", "pong from recommendation service!");
