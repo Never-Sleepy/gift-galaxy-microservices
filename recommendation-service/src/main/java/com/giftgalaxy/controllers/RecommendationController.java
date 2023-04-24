@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("recommendation")
+@RequestMapping("/api/v1/")
 public class RecommendationController {
     private final RecommendationRepository recommendationRepository;
 
@@ -15,7 +15,7 @@ public class RecommendationController {
         this.recommendationRepository = recommendationRepository;
     }
 
-    @GetMapping
+    @GetMapping("recommendation")
     public List<Recommendation> getRecommendations() {
         return recommendationRepository.findAll();
     }
@@ -23,7 +23,7 @@ public class RecommendationController {
     record NewRecommendation(String title, String description, String category, String cost, String link) {
     }
 
-    @PostMapping
+    @PostMapping("recommendation")
     public void addRecommendation(@RequestBody NewRecommendation request) {
         Recommendation recommendation = new Recommendation();
         recommendation.setTitle(request.title());
@@ -33,7 +33,7 @@ public class RecommendationController {
         recommendationRepository.save(recommendation);
     }
 
-    @PutMapping("{recommendationId}")
+    @PutMapping("recommendation/{recommendationId}")
     public void updateRecommendation(@PathVariable("recommendationId") Integer id, @RequestBody NewRecommendation request) {
         Recommendation recommendation = recommendationRepository.findById(id).get();
         recommendation.setTitle(request.title());
@@ -43,7 +43,7 @@ public class RecommendationController {
         recommendationRepository.save(recommendation);
     }
 
-    @DeleteMapping("{recommendationId}")
+    @DeleteMapping("recommendation/{recommendationId}")
     public void deleteRecommendation(@PathVariable("recommendationId") Integer id) {
         Recommendation recommendation = recommendationRepository.findById(id).get();
     }

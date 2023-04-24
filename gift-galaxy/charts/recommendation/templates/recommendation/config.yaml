@@ -4,5 +4,5 @@ metadata:
   name: {{ .Values.name }}-config
 data:
   SERVER_PORT: "{{ .Values.service.port }}"
-  DB_HOST: "localhost"
+  DB_HOST: "recommendation-postgres-service"
   DB_PORT: "{{ .Values.database.port }}"
