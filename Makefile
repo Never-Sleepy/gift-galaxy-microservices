@@ -39,4 +39,4 @@ deploy-user:
 # Local development
 dev:
 	mvn clean package
-	skaffold dev
+	skaffold dev --port-forward --no-prune=false --cache-artifacts=false
