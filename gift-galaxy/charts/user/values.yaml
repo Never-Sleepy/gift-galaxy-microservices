@@ -1,0 +1,17 @@
+name: user
+
+replicaCount: 1
+
+image:
+  repository: user-service
+  tag: latest
+
+service:
+  port: 8080
+
+database:
+  image:
+    repository: mysql
+    tag: 8.0.33
+  port: 3306
+  replicaCount: 1

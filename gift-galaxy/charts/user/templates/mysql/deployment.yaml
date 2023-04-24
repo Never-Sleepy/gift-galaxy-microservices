@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}-mysql
+spec:
+  replicas: {{ .Values.database.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}-mysql
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}-mysql
+    spec:
+      containers:
+        - name: {{ .Values.name }}-mysql
+          image: {{ .Values.database.image.repository }}:{{ .Values.database.image.tag }}
+          {{- if not (eq .Values.global.env "development") }}
+          volumeMounts:
+            - mountPath: /data/db
+              name: {{ .Values.name }}-storage
+          {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.name }}-secret
+      {{- if not (eq .Values.global.env "development") }}
+      volumes:
+        - name: {{ .Values.name }}-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.name }}-mysql-pvc
+      {{- end }}
