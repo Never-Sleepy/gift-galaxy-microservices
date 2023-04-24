@@ -40,3 +40,6 @@ deploy-user:
 dev:
 	mvn clean package
 	skaffold dev --port-forward --no-prune=false --cache-artifacts=false
+
+update:
+	mvn clean package
