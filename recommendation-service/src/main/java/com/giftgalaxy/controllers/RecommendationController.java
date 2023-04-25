@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.giftgalaxy.models.Recommendation;
 import com.giftgalaxy.repositories.RecommendationRepository;
 import com.giftgalaxy.specifications.RecommendationSpecifications;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +15,9 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/v1/")
 public class RecommendationController {
+
+    @Value("${USER_SERVICE}")
+    private String userServiceUrl;
     private final RecommendationRepository recommendationRepository;
 
     public RecommendationController(RecommendationRepository recommendationRepository) {
@@ -27,6 +31,7 @@ public class RecommendationController {
 
     @GetMapping("recommendation/{id}")
     public Recommendation get(@PathVariable("id") Long id) {
+        System.out.println(userServiceUrl);
         return recommendationRepository
                 .findOne(RecommendationSpecifications.isNotDeleted()
                         .and(RecommendationSpecifications.getById(id)))
