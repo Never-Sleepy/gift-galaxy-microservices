@@ -1,5 +1,6 @@
 package com.giftgalaxy.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -10,8 +11,8 @@ import java.util.Objects;
 public class Recommendation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     @Column(name = "title")
     private String title;
 
@@ -34,12 +35,12 @@ public class Recommendation {
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Recommendation(Long id, String title, String description, String category, double cost, Long userId, String link, LocalDateTime createdAt, LocalDateTime updateAt, LocalDateTime deletedAt) {
+    public Recommendation(Long id, String title, String description, String category, double cost, Long userId, String link, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -48,13 +49,11 @@ public class Recommendation {
         this.userId = userId;
         this.link = link;
         this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
 
-    public Recommendation() {
-
-    }
+    public Recommendation() {}
 
     public Long getId() {
         return id;
@@ -88,14 +87,15 @@ public class Recommendation {
         this.category = category;
     }
 
-    public double getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
+    @JsonProperty("user_id")
     public Long getUserId() {
         return userId;
     }
@@ -112,6 +112,7 @@ public class Recommendation {
         this.link = link;
     }
 
+    @JsonProperty("created_at")
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -120,14 +121,16 @@ public class Recommendation {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdateAt() {
-        return updateAt;
+    @JsonProperty("updated_at")
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(LocalDateTime updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
+    @JsonProperty("deleted_at")
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
@@ -141,12 +144,12 @@ public class Recommendation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recommendation that = (Recommendation) o;
-        return Double.compare(that.cost, cost) == 0 && Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(category, that.category) && Objects.equals(userId, that.userId) && Objects.equals(link, that.link) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updateAt, that.updateAt) && Objects.equals(deletedAt, that.deletedAt);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(category, that.category) && Objects.equals(cost, that.cost) && Objects.equals(userId, that.userId) && Objects.equals(link, that.link) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, category, cost, userId, link, createdAt, updateAt, deletedAt);
+        return Objects.hash(id, title, description, category, cost, userId, link, createdAt, updatedAt, deletedAt);
     }
 
     @Override
@@ -160,7 +163,7 @@ public class Recommendation {
                 ", userId=" + userId +
                 ", link='" + link + '\'' +
                 ", createdAt=" + createdAt +
-                ", updateAt=" + updateAt +
+                ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +
                 '}';
     }
