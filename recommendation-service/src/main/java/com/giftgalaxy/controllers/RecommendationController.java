@@ -6,7 +6,13 @@ import com.giftgalaxy.repositories.RecommendationRepository;
 import com.giftgalaxy.specifications.RecommendationSpecifications;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
@@ -31,7 +37,28 @@ public class RecommendationController {
 
     @GetMapping("recommendation/{id}")
     public Recommendation get(@PathVariable("id") Long id) {
-        System.out.println(userServiceUrl);
+        String id_value = String.valueOf(id);
+        String url = userServiceUrl + "/user/" + id_value;
+
+        ClientHttpConnector connector = new ReactorClientHttpConnector();
+
+        ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
+                .codecs(configurer -> configurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder()))
+                .build();
+
+        WebClient webClient = WebClient.builder()
+                .clientConnector(connector)
+                .exchangeStrategies(exchangeStrategies)
+                .build();
+
+        String jsonResponse = webClient.get()
+                .uri(url)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .flatMap(response -> response.bodyToMono(String.class))
+                .block();
+
+        System.out.println(jsonResponse);
         return recommendationRepository
                 .findOne(RecommendationSpecifications.isNotDeleted()
                         .and(RecommendationSpecifications.getById(id)))
