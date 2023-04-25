@@ -4,7 +4,7 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class Administrator extends User {
-    public Administrator(Long ID, String userName, String password) {
-        super(ID, userName, password, "Administrator");
+    public Administrator(String userName, String password) {
+        super(userName, password, "Administrator");
     }
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +20,7 @@ public class User {
     @Column(nullable = false)
     private String type;
 
-    public User(Long id, String username, String password, String type) {
-        this.id = id;
+    public User(String username, String password, String type) {
         this.username = username;
         this.password = password;
         this.type = type;

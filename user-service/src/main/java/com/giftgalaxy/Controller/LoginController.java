@@ -30,10 +30,14 @@ public class LoginController {
         }
 
         String type = user.getType();
+        Long id = user.getId();
         switch (type) {
-            case "Administrator" -> user = new Administrator(user.getId(), user.getUsername(), user.getPassword());
-            case "NormalUser" -> user = new NormalUser(user.getId(), user.getUsername(), user.getPassword());
+            case "Administrator" -> user = new Administrator(user.getUsername(), user.getPassword());
+            case "NormalUser" -> user = new NormalUser(user.getUsername(), user.getPassword());
         }
+
+        user.setId(id);
+
         return user;
     }
 }
