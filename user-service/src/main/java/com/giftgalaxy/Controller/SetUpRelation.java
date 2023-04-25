@@ -7,7 +7,7 @@ import com.giftgalaxy.Model.Relationship.Relation;
 
 import java.util.UUID;
 
-public class setUpRelation {
+public class SetUpRelation {
 
     public Relation setUpRelation(String type){
         Relation relation = null;

@@ -1,34 +1,48 @@
 package com.giftgalaxy.Model.User;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
 
-public abstract class User {
+import java.util.Objects;
+
+@Entity
+@Table(name = "user")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID;
-    private String userName;
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String type;
 
-    public User(Integer ID,String userName, String password, String type) {
-        this.ID = ID;
-        this.userName = userName;
+    public User(Long id, String username, String password, String type) {
+        this.id = id;
+        this.username = username;
         this.password = password;
         this.type = type;
     }
 
-    private Integer getID() {
-        return ID;
+    public User() {}
+
+    public Long getId() {
+        return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {
@@ -47,4 +61,26 @@ public abstract class User {
         this.type = type;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(type, user.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, type);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }
