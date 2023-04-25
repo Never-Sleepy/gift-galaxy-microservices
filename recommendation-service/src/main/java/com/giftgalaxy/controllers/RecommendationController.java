@@ -1,12 +1,18 @@
 package com.giftgalaxy.controllers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.giftgalaxy.models.Recommendation;
 import com.giftgalaxy.repositories.RecommendationRepository;
+import com.giftgalaxy.responses.RecommendationResponse;
+import com.giftgalaxy.responses.UserResponse;
 import com.giftgalaxy.specifications.RecommendationSpecifications;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
@@ -36,7 +42,7 @@ public class RecommendationController {
     }
 
     @GetMapping("recommendation/{id}")
-    public Recommendation get(@PathVariable("id") Long id) {
+    public RecommendationResponse get(@PathVariable("id") Long id) {
         String id_value = String.valueOf(id);
         String url = userServiceUrl + "/user/" + id_value;
 
@@ -59,10 +65,15 @@ public class RecommendationController {
                 .block();
 
         System.out.println(jsonResponse);
-        return recommendationRepository
+
+        Recommendation recommendation = recommendationRepository
                 .findOne(RecommendationSpecifications.isNotDeleted()
                         .and(RecommendationSpecifications.getById(id)))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Recommendation not found"));
+
+        return new RecommendationResponse(
+                recommendation, jsonResponse
+        );
     }
 
     record NewRecommendation(
