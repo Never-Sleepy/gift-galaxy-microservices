@@ -1,8 +1,6 @@
 package com.giftgalaxy.Controller;
 
 import com.giftgalaxy.Database.UserRepository;
-import com.giftgalaxy.Model.User.Administrator;
-import com.giftgalaxy.Model.User.NormalUser;
 import com.giftgalaxy.Model.User.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
