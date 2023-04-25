@@ -1,0 +1,23 @@
+apiVersion: skaffold/v4beta4
+kind: Config
+metadata:
+  name: gift-galaxy-microservices
+build:
+  local:
+    push: false
+  artifacts:
+    - image: recommendation-service
+      context: recommendation-service
+      docker:
+        dockerfile: recommendation-service/Dockerfile
+    - image: user-service
+      context: user-service
+      docker:
+        dockerfile: user-service/Dockerfile
+deploy:
+  helm:
+    releases:
+      - name: development
+        chartPath: gift-galaxy
+        valuesFiles:
+          - gift-galaxy/values.yaml

@@ -1,0 +1,12 @@
+controller:
+  config:
+    use-proxy-protocol: "true"
+    use-forwarded-headers: "true"
+  service:
+    annotations:
+      service.beta.kubernetes.io/do-loadbalancer-name: "line-world"
+      service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
+      service.beta.kubernetes.io/do-loadbalancer-algorithm: "least_connections"
+      # Set the custom domain
+      service.beta.kubernetes.io/do-loadbalancer-hostname: "<CUSTOM_DOMAIN>"
+    externalTrafficPolicy: "Cluster"

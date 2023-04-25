@@ -4,11 +4,12 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-.idea/dataSources
+#.idea/modules.xml
+#.idea/jarRepositories.xml
+#.idea/compiler.xml
+#.idea/libraries/
+#.idea/dataSources
+.idea
 *.iws
 *.iml
 *.ipr
@@ -37,3 +38,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Secrets ###
+k8s/recommendation-secret.yaml
+k8s/user-secret.yaml
